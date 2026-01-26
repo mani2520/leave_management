@@ -1,8 +1,9 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
 
 @theme {
   --radius: 0.625rem;
-  
+
   /* Light mode colors - Define in @theme for Tailwind utilities */
   --color-background: #fafafa;
   --color-foreground: #18181b;
@@ -65,8 +66,10 @@
 }
 
 /* Base styles */
-* {
-  border-color: var(--color-border);
+@layer base {
+  * {
+    @apply border-border;
+  }
 }
 
 html {
@@ -76,5 +79,7 @@ html {
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }

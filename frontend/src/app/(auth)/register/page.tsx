@@ -2,7 +2,14 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Eye, EyeClosed, LockKeyhole, LogIn, Mail } from 'lucide-react';
+import {
+  Eye,
+  EyeClosed,
+  LockKeyhole,
+  LogIn,
+  Mail,
+  UserPlus,
+} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -84,7 +91,7 @@ const LoginPage = () => {
 
             <Button className='w-full' type='submit'>
               Register
-              <LogIn />
+              <UserPlus />
             </Button>
           </form>
 
