@@ -2,8 +2,8 @@
   "users": [
     {
       "id": "1",
-      "name": "Raj Kumar",
-      "email": "raj@company.com",
+      "name": "Rajaguru",
+      "email": "rajaguru@company.com",
       "role": "employee",
       "department": "Engineering",
       "managerId": "2",
@@ -29,8 +29,8 @@
     },
     {
       "id": "4",
-      "name": "Deepa Reddy",
-      "email": "deepa@company.com",
+      "name": "Reddy",
+      "email": "reddy@company.com",
       "role": "employee",
       "department": "HR",
       "managerId": "6",
@@ -168,7 +168,9 @@
       "casual": 9,
       "annual": 15,
       "unpaid": 0,
-      "total": 32
+      "total": 32,
+      "maternityPaternity": 20,
+      "compOff": 2
     },
     {
       "id": "2",
@@ -177,7 +179,9 @@
       "casual": 12,
       "annual": 20,
       "unpaid": 0,
-      "total": 42
+      "total": 42,
+      "maternityPaternity": 0,
+      "compOff": 0
     },
     {
       "id": "3",
@@ -186,7 +190,9 @@
       "casual": 11,
       "annual": 11,
       "unpaid": 0,
-      "total": 30
+      "total": 30,
+      "maternityPaternity": 0,
+      "compOff": 0
     },
     {
       "id": "4",
@@ -195,7 +201,9 @@
       "casual": 10,
       "annual": 15,
       "unpaid": 0,
-      "total": 34
+      "total": 34,
+      "maternityPaternity": 0,
+      "compOff": 0
     },
     {
       "id": "5",
@@ -204,7 +212,9 @@
       "casual": 12,
       "annual": 25,
       "unpaid": 0,
-      "total": 47
+      "total": 47,
+      "maternityPaternity": 0,
+      "compOff": 0
     },
     {
       "id": "6",
@@ -213,7 +223,9 @@
       "casual": 12,
       "annual": 20,
       "unpaid": 0,
-      "total": 42
+      "total": 42,
+      "maternityPaternity": 0,
+      "compOff": 0
     }
   ],
   "departments": [
@@ -299,6 +311,36 @@
       "code": "unpaid",
       "defaultDays": 0,
       "color": "#6b7280"
+    }
+  ],
+  "motivationQuotes": [
+    {
+      "id": "1",
+      "text": "The only way to do great work is to love what you do."
+    },
+    {
+      "id": "2",
+      "text": "Your time is limited, so don't waste it living someone else's life."
+    },
+    {
+      "id": "3",
+      "text": "Take a break when you need it — rest is part of the journey."
+    },
+    {
+      "id": "4",
+      "text": "Small steps every day lead to big results."
+    },
+    {
+      "id": "5",
+      "text": "Balance work and life — both deserve your best."
+    },
+    {
+      "id": "6",
+      "text": "Recharge today so you can perform better tomorrow."
+    },
+    {
+      "id": "7",
+      "text": "A well-rested mind is a productive mind."
     }
   ]
 }

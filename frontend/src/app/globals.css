@@ -36,6 +36,7 @@
 
 /* Dark mode colors - Applied when .dark class is on html element */
 .dark {
+  /* Welcome card gradient uses .dark --color-primary automatically */
   --color-background: #09090b;
   --color-foreground: #fafafa;
   --color-card: #18181b;
@@ -69,6 +70,19 @@
 @layer base {
   * {
     @apply border-border;
+  }
+
+  /* Welcome card gradient - adapts to theme primary (light/dark) */
+  :root {
+    --welcome-gradient-from: color-mix(in srgb, var(--color-primary) 25%, black);
+    --welcome-gradient-mid: color-mix(in srgb, var(--color-primary) 65%, black);
+    --welcome-gradient-to: color-mix(in srgb, var(--color-primary) 15%, black);
+  }
+
+  .dark {
+    --welcome-gradient-from: color-mix(in srgb, var(--color-primary) 25%, black);
+    --welcome-gradient-mid: color-mix(in srgb, var(--color-primary) 65%, black);
+    --welcome-gradient-to: color-mix(in srgb, var(--color-primary) 15%, black);
   }
 }
 

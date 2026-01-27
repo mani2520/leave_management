@@ -31,6 +31,8 @@ export interface LeaveBalance {
   annual: number;
   unpaid: number;
   total: number;
+  maternityPaternity?: number;
+  compOff?: number;
 }
 
 export interface Department {
@@ -64,4 +66,9 @@ export interface LeaveStats {
 export interface TeamMember extends User {
   leaveBalance?: LeaveBalance;
   onLeave?: boolean;
+}
+
+export interface MotivationQuote {
+  id: string;
+  text: string;
 }
