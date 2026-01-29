@@ -26,7 +26,7 @@
   --color-border: #e4e4e7;
   --color-input: #e4e4e7;
   --color-ring: #3b82f6;
-  --color-sidebar: #fafafa;
+  --color-sidebar: #ffffff;
   --color-sidebar-foreground: #18181b;
   --color-sidebar-primary: #3b82f6;
   --color-sidebar-primary-foreground: #ffffff;
@@ -101,7 +101,7 @@ body {
 }
 
 :root {
-  --sidebar: hsl(0 0% 98%);
+  --sidebar: hsl(0 0% 100%);
   --sidebar-foreground: hsl(240 5.3% 26.1%);
   --sidebar-primary: hsl(240 5.9% 10%);
   --sidebar-primary-foreground: hsl(0 0% 98%);
@@ -132,7 +132,7 @@ body {
   --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
   --sidebar-border: hsl(240 3.7% 15.9%);
   --sidebar-ring: hsl(217.2 91.2% 59.8%);
-  --color-sidebar: #18181b;
+  --color-sidebar: #09090b;
   --color-sidebar-foreground: #fafafa;
   --color-sidebar-primary: #60a5fa;
   --color-sidebar-primary-foreground: #18181b;
@@ -152,14 +152,14 @@ body {
 
   /* Scrollbar – theme-aware (light / dark) */
   :root {
-    --scrollbar-track: #f4f4f5;
-    --scrollbar-thumb: #a1a1aa;
-    --scrollbar-thumb-hover: #71717a;
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: #d4d4d8;
+    --scrollbar-thumb-hover: #a1a1aa;
   }
   .dark {
-    --scrollbar-track: #27272a;
-    --scrollbar-thumb: #52525b;
-    --scrollbar-thumb-hover: #71717a;
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: #3f3f46;
+    --scrollbar-thumb-hover: #52525b;
   }
 
   * {
@@ -168,15 +168,15 @@ body {
   }
 
   *::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
   }
   *::-webkit-scrollbar-track {
     background: var(--scrollbar-track);
   }
   *::-webkit-scrollbar-thumb {
     background: var(--scrollbar-thumb);
-    border-radius: 4px;
+    border-radius: 20px;
   }
   *::-webkit-scrollbar-thumb:hover {
     background: var(--scrollbar-thumb-hover);
