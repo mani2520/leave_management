@@ -2,7 +2,7 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  role: 'employee' | 'manager' | 'admin';
+  role: "employee" | "manager" | "admin";
   department: string;
   managerId: string | null;
   avatar: string;
@@ -11,12 +11,12 @@ export interface User {
 export interface Leave {
   id: string;
   userId: string;
-  type: 'sick' | 'casual' | 'annual' | 'unpaid';
+  type: "sick" | "casual" | "annual" | "unpaid";
   startDate: string;
   endDate: string;
   days: number;
   reason: string;
-  status: 'pending' | 'approved' | 'rejected';
+  status: "pending" | "approved" | "rejected";
   appliedAt: string;
   reviewedBy?: string;
   reviewedAt?: string;
@@ -45,13 +45,13 @@ export interface Holiday {
   id: string;
   name: string;
   date: string;
-  type: 'public' | 'optional';
+  type: "public" | "optional";
 }
 
 export interface LeaveType {
   id: string;
   name: string;
-  code: 'sick' | 'casual' | 'annual' | 'unpaid';
+  code: "sick" | "casual" | "annual" | "unpaid";
   defaultDays: number;
   color: string;
 }
@@ -68,7 +68,7 @@ export interface TeamMember extends User {
   onLeave?: boolean;
 }
 
-export interface MotivationQuote {
+export interface ApplyLeaveMessage {
   id: string;
   text: string;
 }

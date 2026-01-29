@@ -6,6 +6,7 @@
       "email": "rajaguru@company.com",
       "role": "employee",
       "department": "Engineering",
+      "designation": "Frontend Developer",
       "managerId": "2",
       "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Raj"
     },
@@ -15,44 +16,9 @@
       "email": "priya@company.com",
       "role": "manager",
       "department": "Engineering",
-      "managerId": "5",
-      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya"
-    },
-    {
-      "id": "3",
-      "name": "Arun Patel",
-      "email": "arun@company.com",
-      "role": "employee",
-      "department": "Engineering",
-      "managerId": "2",
-      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Arun"
-    },
-    {
-      "id": "4",
-      "name": "Reddy",
-      "email": "reddy@company.com",
-      "role": "employee",
-      "department": "HR",
-      "managerId": "6",
-      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Deepa"
-    },
-    {
-      "id": "5",
-      "name": "Vikram Singh",
-      "email": "vikram@company.com",
-      "role": "admin",
-      "department": "Management",
+      "designation": "Engineering Manager",
       "managerId": null,
-      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Vikram"
-    },
-    {
-      "id": "6",
-      "name": "Anita Desai",
-      "email": "anita@company.com",
-      "role": "manager",
-      "department": "HR",
-      "managerId": "5",
-      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Anita"
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya"
     }
   ],
   "leaves": [
@@ -78,52 +44,11 @@
       "endDate": "2026-03-15",
       "days": 5,
       "reason": "Family vacation",
-      "status": "pending",
+      "status": "approved",
       "appliedAt": "2026-01-26T09:00:00Z"
     },
     {
       "id": "3",
-      "userId": "3",
-      "type": "casual",
-      "startDate": "2026-02-05",
-      "endDate": "2026-02-05",
-      "days": 1,
-      "reason": "Personal work",
-      "status": "approved",
-      "appliedAt": "2026-01-25T11:00:00Z",
-      "reviewedBy": "2",
-      "reviewedAt": "2026-01-25T15:00:00Z"
-    },
-    {
-      "id": "4",
-      "userId": "3",
-      "type": "sick",
-      "startDate": "2026-01-28",
-      "endDate": "2026-01-29",
-      "days": 2,
-      "reason": "Doctor appointment",
-      "status": "rejected",
-      "appliedAt": "2026-01-27T08:00:00Z",
-      "reviewedBy": "2",
-      "reviewedAt": "2026-01-27T10:00:00Z",
-      "comments": "Please reschedule"
-    },
-    {
-      "id": "5",
-      "userId": "4",
-      "type": "annual",
-      "startDate": "2026-02-15",
-      "endDate": "2026-02-20",
-      "days": 5,
-      "reason": "Wedding ceremony",
-      "status": "approved",
-      "appliedAt": "2026-01-20T09:30:00Z",
-      "reviewedBy": "6",
-      "reviewedAt": "2026-01-20T16:00:00Z",
-      "comments": "Congratulations!"
-    },
-    {
-      "id": "6",
       "userId": "1",
       "type": "casual",
       "startDate": "2026-02-01",
@@ -134,8 +59,8 @@
       "appliedAt": "2026-01-26T14:00:00Z"
     },
     {
-      "id": "7",
-      "userId": "3",
+      "id": "4",
+      "userId": "1",
       "type": "annual",
       "startDate": "2025-12-24",
       "endDate": "2025-12-27",
@@ -147,102 +72,63 @@
       "reviewedAt": "2025-12-11T09:00:00Z"
     },
     {
-      "id": "8",
-      "userId": "4",
+      "id": "5",
+      "userId": "1",
       "type": "sick",
-      "startDate": "2025-12-15",
-      "endDate": "2025-12-15",
-      "days": 1,
+      "startDate": "2025-11-15",
+      "endDate": "2025-11-16",
+      "days": 2,
       "reason": "Medical checkup",
       "status": "approved",
-      "appliedAt": "2025-12-14T08:00:00Z",
-      "reviewedBy": "6",
-      "reviewedAt": "2025-12-14T11:00:00Z"
+      "appliedAt": "2025-11-14T08:00:00Z",
+      "reviewedBy": "2",
+      "reviewedAt": "2025-11-14T11:00:00Z"
+    },
+    {
+      "id": "6",
+      "userId": "1",
+      "type": "casual",
+      "startDate": "2025-10-05",
+      "endDate": "2025-10-05",
+      "days": 1,
+      "reason": "Personal work",
+      "status": "approved",
+      "appliedAt": "2025-10-03T09:00:00Z",
+      "reviewedBy": "2",
+      "reviewedAt": "2025-10-03T15:00:00Z"
+    },
+    {
+      "id": "7",
+      "userId": "1",
+      "type": "annual",
+      "startDate": "2025-09-10",
+      "endDate": "2025-09-12",
+      "days": 3,
+      "reason": "Short trip",
+      "status": "approved",
+      "appliedAt": "2025-09-05T10:00:00Z",
+      "reviewedBy": "2",
+      "reviewedAt": "2025-09-05T14:00:00Z"
     }
   ],
   "leaveBalances": [
     {
       "id": "1",
       "userId": "1",
-      "sick": 8,
-      "casual": 9,
-      "annual": 15,
+      "sick": 6,
+      "casual": 6,
+      "annual": 12,
       "unpaid": 0,
-      "total": 32,
-      "maternityPaternity": 20,
+      "total": 26,
+      "maternityPaternity": 0,
       "compOff": 2
-    },
-    {
-      "id": "2",
-      "userId": "2",
-      "sick": 10,
-      "casual": 12,
-      "annual": 20,
-      "unpaid": 0,
-      "total": 42,
-      "maternityPaternity": 0,
-      "compOff": 0
-    },
-    {
-      "id": "3",
-      "userId": "3",
-      "sick": 8,
-      "casual": 11,
-      "annual": 11,
-      "unpaid": 0,
-      "total": 30,
-      "maternityPaternity": 0,
-      "compOff": 0
-    },
-    {
-      "id": "4",
-      "userId": "4",
-      "sick": 9,
-      "casual": 10,
-      "annual": 15,
-      "unpaid": 0,
-      "total": 34,
-      "maternityPaternity": 0,
-      "compOff": 0
-    },
-    {
-      "id": "5",
-      "userId": "5",
-      "sick": 10,
-      "casual": 12,
-      "annual": 25,
-      "unpaid": 0,
-      "total": 47,
-      "maternityPaternity": 0,
-      "compOff": 0
-    },
-    {
-      "id": "6",
-      "userId": "6",
-      "sick": 10,
-      "casual": 12,
-      "annual": 20,
-      "unpaid": 0,
-      "total": 42,
-      "maternityPaternity": 0,
-      "compOff": 0
     }
   ],
   "departments": [
     {
       "id": "1",
-      "name": "Engineering",
+      "name": "frontend developmer",
       "headId": "2"
-    },
-    {
-      "id": "2",
-      "name": "HR",
-      "headId": "6"
-    },
-    {
-      "id": "3",
-      "name": "Management",
-      "headId": "5"
     }
   ],
   "holidays": [
@@ -313,34 +199,17 @@
       "color": "#6b7280"
     }
   ],
-  "motivationQuotes": [
-    {
-      "id": "1",
-      "text": "The only way to do great work is to love what you do."
-    },
+  "applyLeaveMessages": [
+    { "id": "1", "text": "You can apply for leave anytime — quick and easy." },
     {
       "id": "2",
-      "text": "Your time is limited, so don't waste it living someone else's life."
+      "text": "Need a break? Apply for leave in just a few clicks."
     },
-    {
-      "id": "3",
-      "text": "Take a break when you need it — rest is part of the journey."
-    },
+    { "id": "3", "text": "Apply for leave whenever you need time off." },
     {
       "id": "4",
-      "text": "Small steps every day lead to big results."
+      "text": "Time off is just a click away. Apply for leave whenever you need."
     },
-    {
-      "id": "5",
-      "text": "Balance work and life — both deserve your best."
-    },
-    {
-      "id": "6",
-      "text": "Recharge today so you can perform better tomorrow."
-    },
-    {
-      "id": "7",
-      "text": "A well-rested mind is a productive mind."
-    }
+    { "id": "5", "text": "Apply for leave easily — whenever you need a break." }
   ]
 }
