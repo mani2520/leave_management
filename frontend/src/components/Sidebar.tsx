@@ -87,7 +87,7 @@ const AppSidebarContent = () => {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu className='gap-2 group-data-[collapsible=icon]:gap-6'>
+            <SidebarMenu className='gap-1 group-data-[collapsible=icon]:gap-3'>
               {menuItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = pathname === item.path;
@@ -98,17 +98,17 @@ const AppSidebarContent = () => {
                     <SidebarMenuButton
                       asChild
                       isActive={isActive}
-                      tooltip={isCollapsed ? undefined : item.label}
+                      tooltip={isCollapsed ? item.label : undefined}
                       className={cn(
                         'transition-all duration-200',
                         isCollapsed
-                          ? 'h-auto! w-[calc(100%-16px)]! justify-center py-4 px-0! rounded-2xl mx-auto' // Centered
-                          : 'h-auto justify-start px-3 py-2 rounded-md',
+                          ? 'group-data-[collapsible=icon]:size-auto! group-data-[collapsible=icon]:h-auto! group-data-[collapsible=icon]:min-h-0 w-[calc(100%-12px)]! justify-center items-center py-2.5 px-1 rounded-xl mx-auto overflow-visible! [&>span:last-child]:overflow-visible [&>span:last-child]:whitespace-nowrap'
+                          : 'h-auto justify-start px-3 py-2 rounded-lg',
                         isActive
                           ? isCollapsed
-                            ? 'bg-primary/10! text-primary! hover:bg-primary/20! hover:text-primary!' // Soft style for collapsed (Forced)
-                            : 'bg-primary! text-primary-foreground! hover:bg-primary/90! hover:text-primary-foreground!' // Solid style for expanded (Forced)
-                          : 'text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground', // Gray inactive
+                            ? 'bg-blue-100 dark:bg-primary/15! text-blue-600 dark:text-primary! hover:bg-blue-100/90 dark:hover:bg-primary/20!'
+                            : 'bg-primary! text-primary-foreground! hover:bg-primary/90! hover:text-primary-foreground!'
+                          : 'text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
                       )}
                     >
                       <Link
@@ -116,23 +116,23 @@ const AppSidebarContent = () => {
                         className={cn(
                           'flex w-full',
                           isCollapsed
-                            ? 'flex-col items-center justify-center gap-2'
+                            ? 'flex flex-col items-center justify-center gap-1 text-center'
                             : 'flex-row items-center gap-3',
                         )}
                       >
                         <Icon
                           className={cn(
                             'shrink-0 transition-all',
-                            isCollapsed ? 'size-8' : 'size-5',
+                            isCollapsed ? 'size-6' : 'size-5',
                           )}
                           aria-hidden
                         />
                         <span
                           className={cn(
-                            'truncate transition-all',
+                            'transition-all',
                             isCollapsed
-                              ? 'text-xs font-semibold leading-tight !block opacity-100 w-full text-center whitespace-normal group-data-[collapsible=icon]:!block'
-                              : 'text-base group-data-[collapsible=icon]:hidden',
+                              ? 'text-[11px] font-medium leading-tight block! opacity-100 text-center whitespace-nowrap overflow-visible group-data-[collapsible=icon]:block!'
+                              : 'truncate text-sm group-data-[collapsible=icon]:hidden',
                           )}
                         >
                           {item.label}
@@ -154,7 +154,7 @@ export const AppSidebar = () => (
   <ShadcnSidebar
     side='left'
     collapsible='icon'
-    className={cn('shrink-0 border-sidebar-border border-r z-[100]')}
+    className={cn('shrink-0 border-sidebar-border border-r z-100')}
   >
     <AppSidebarContent />
   </ShadcnSidebar>
@@ -167,7 +167,7 @@ export const DashboardLayoutSidebar = ({
 }) => (
   <SidebarProvider
     className={cn('flex h-screen w-full overflow-hidden')}
-    defaultOpen
+    defaultOpen={false}
   >
     <AppSidebar />
     <SidebarInset className='flex min-h-0 flex-1 flex-col overflow-hidden'>

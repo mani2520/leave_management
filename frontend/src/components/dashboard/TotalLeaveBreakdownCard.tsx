@@ -126,6 +126,7 @@ const TotalLeaveBreakdownCard = ({
               strokeWidth={0}
               startAngle={90}
               endAngle={-270}
+              cornerRadius={10}
             >
               {finalData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.fill} />
