@@ -5,10 +5,13 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Send } from 'lucide-react';
 import {
+  PieChart,
+  Pie,
+  Cell,
+  Label,
+  ResponsiveContainer,
   Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from 'recharts';
 import type { LeaveBalance } from '@/types';
 import type { Leave } from '@/types';
 
@@ -25,7 +28,13 @@ export interface TotalLeaveBreakdownCardProps {
   last6MonthsData?: Last6MonthsItem[];
 }
 
-const LEAVE_TYPE_MAP: Record<string, keyof Pick<LeaveBalance, 'annual' | 'casual' | 'sick' | 'maternityPaternity' | 'compOff'>> = {
+const LEAVE_TYPE_MAP: Record<
+  string,
+  keyof Pick<
+    LeaveBalance,
+    'annual' | 'casual' | 'sick' | 'maternityPaternity' | 'compOff'
+  >
+> = {
   annual: 'annual',
   casual: 'casual',
   sick: 'sick',
@@ -34,7 +43,6 @@ const LEAVE_TYPE_MAP: Record<string, keyof Pick<LeaveBalance, 'annual' | 'casual
 const TotalLeaveBreakdownCard = ({
   leaveBalance,
   myLeaves,
-  last6MonthsData = [],
 }: TotalLeaveBreakdownCardProps) => {
   const usedByType = React.useMemo(() => {
     const used: Record<string, number> = {
@@ -67,7 +75,11 @@ const TotalLeaveBreakdownCard = ({
       usedByType.compOff +
       usedByType.bereavement;
     const totalRemaining =
-      bal.annual + bal.casual + bal.sick + (bal.maternityPaternity ?? 0) + (bal.compOff ?? 0);
+      bal.annual +
+      bal.casual +
+      bal.sick +
+      (bal.maternityPaternity ?? 0) +
+      (bal.compOff ?? 0);
     const totalLeaves = totalRemaining + totalUsed;
     return {
       totalLeaves,
@@ -76,66 +88,118 @@ const TotalLeaveBreakdownCard = ({
     };
   }, [leaveBalance, usedByType]);
 
-  const chartDays = last6MonthsData.map((m) => m.days);
-  const maxChartDays = Math.max(1, ...chartDays);
+  // Donut Chart Data
+  const chartData = React.useMemo(
+    () => [
+      { name: 'Remaining', value: totalRemaining, fill: '#172554' }, // Dark Blue (Darker than theme)
+      { name: 'Used', value: totalUsed, fill: 'var(--color-primary)' }, // Theme Color
+    ],
+    [totalRemaining, totalUsed],
+  );
+
+  // If no data, show a grey ring
+  const finalData =
+    totalLeaves === 0
+      ? [{ name: 'Empty', value: 1, fill: 'var(--color-muted)' }]
+      : chartData;
 
   return (
     <div
-      className='relative col-span-1 overflow-hidden rounded-2xl min-h-[280px] flex flex-col p-6 md:p-8 border border-border bg-card shadow-sm'
-      aria-label='Total leave breakdown card'
+      className='relative col-span-1 border border-border bg-card shadow-sm rounded-2xl p-6 flex flex-col items-center justify-center min-h-[300px]'
+      aria-label='Total leave breakdown'
     >
-      <div className='flex justify-between items-start mb-4'>
-        <div>
-          <span className='font-bold text-muted-foreground text-xs  tracking-widest'>
-          Remaining Leave
-          </span>
-          <h2 className='mt-1 font-bold text-primary text-2xl md:text-3xl tabular-nums'>
-          {totalRemaining} days
-          </h2>
-          <p className='mt-1 text-muted-foreground text-sm'>
-            <span className='font-medium text-foreground'>{totalUsed} days used</span>
-            <span className='mx-1.5 text-muted-foreground/70'>·</span>
-            <span>{totalLeaves} total leaves</span>
-          </p>
-        </div>
-        
+      <h3 className='absolute top-6 left-6 font-semibold text-lg'>
+        Leave Allocation
+      </h3>
+
+      <div className='h-64 w-full mt-4'>
+        <ResponsiveContainer width='100%' height='100%'>
+          <PieChart>
+            <Pie
+              data={finalData}
+              dataKey='value'
+              nameKey='name'
+              cx='50%'
+              cy='50%'
+              innerRadius={80}
+              outerRadius={100}
+              strokeWidth={0}
+              startAngle={90}
+              endAngle={-270}
+            >
+              {finalData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.fill} />
+              ))}
+              <Label
+                content={({ viewBox }) => {
+                  if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
+                    return (
+                      <text
+                        x={viewBox.cx}
+                        y={viewBox.cy}
+                        textAnchor='middle'
+                        dominantBaseline='middle'
+                      >
+                        <tspan
+                          x={viewBox.cx}
+                          y={viewBox.cy}
+                          className='fill-foreground text-4xl font-bold'
+                          dy='-10'
+                        >
+                          {totalRemaining}
+                        </tspan>
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 24}
+                          className='fill-muted-foreground text-sm font-medium'
+                        >
+                          Remaining
+                        </tspan>
+                      </text>
+                    );
+                  }
+                }}
+              />
+            </Pie>
+            <Tooltip
+              content={({ active, payload }) => {
+                if (active && payload && payload.length) {
+                  const data = payload[0].payload;
+                  if (data.name === 'Empty') return null;
+                  return (
+                    <div className='flex items-center gap-2 rounded-lg border border-border/50 bg-popover px-3 py-2 shadow-xl'>
+                      <div
+                        className='h-2.5 w-2.5 rounded-full ring-1 ring-border'
+                        style={{ backgroundColor: data.fill }}
+                      />
+                      <span className='text-sm font-medium text-popover-foreground'>
+                        {data.name}{' '}
+                        <span className='font-bold opacity-90'>
+                          {data.value}
+                        </span>
+                      </span>
+                    </div>
+                  );
+                }
+                return null;
+              }}
+            />
+          </PieChart>
+        </ResponsiveContainer>
       </div>
-      {last6MonthsData.length > 0 && (
-        <div className='mt-4 pt-3 border-t border-border'>
-          <p className='mb-2 text-muted-foreground text-xs font-medium'>
-            Leave usage · last 6 months
-          </p>
-          <div
-            className='flex h-12 items-end justify-between gap-1'
-            role='img'
-            aria-label='Leave usage by month for the last 6 months'
-          >
-            {last6MonthsData.map((month, i) => {
-              const pct = Math.max(4, (month.days / maxChartDays) * 100);
-              return (
-                <Tooltip key={month.key}>
-                  <TooltipTrigger asChild>
-                    <div
-                      className='flex-1 min-w-0 rounded-sm bg-primary/80 cursor-default transition-opacity hover:opacity-100 hover:bg-primary'
-                      style={{ height: `${pct}%`, minHeight: 4 }}
-                      role='img'
-                      aria-label={`${month.fullMonth}: ${month.days} days used`}
-                    />
-                  </TooltipTrigger>
-                  <TooltipContent side='top' sideOffset={6} className='text-left'>
-                    <p className='text-muted-foreground text-xs font-medium'>
-                      {month.fullMonth}
-                    </p>
-                    <p className='mt-0.5 font-semibold text-sm'>
-                      {month.days} {month.days === 1 ? 'day' : 'days'} used
-                    </p>
-                  </TooltipContent>
-                </Tooltip>
-              );
-            })}
-          </div>
+
+      <div className='flex w-full justify-center gap-8 text-sm mt-2'>
+        <div className='flex items-center gap-2'>
+          <span className='h-3 w-3 rounded-full bg-[#172554]' />
+          <span className='text-muted-foreground'>
+            {totalRemaining} Remaining
+          </span>
         </div>
-      )}
+        <div className='flex items-center gap-2'>
+          <span className='h-3 w-3 rounded-full bg-primary' />
+          <span className='text-muted-foreground'>{totalUsed} Used</span>
+        </div>
+      </div>
     </div>
   );
 };

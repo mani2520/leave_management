@@ -9,7 +9,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     <DashboardLayoutSidebar>
       <main
         id='main-content'
-        className='min-h-0 flex-1 overflow-y-auto bg-slate-50 dark:bg-slate-950 relative'
+        className='min-h-0 flex-1 overflow-y-auto overflow-x-hidden bg-slate-50 dark:bg-slate-950 relative'
       >
         <Navbar />
         {children}

@@ -39,18 +39,20 @@ const LeaveMetricCards = ({
   cards,
   last12MonthsLeaveData,
 }: LeaveMetricCardsProps) => {
+  const chartRefs = React.useRef<(HTMLDivElement | null)[]>([]);
+
   return (
     <div className='gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mb-8'>
-      {cards.map((card) => {
+      {cards.map((card, i) => {
         const usageByMonth = card.usageByMonth ?? [];
         const maxDomain = Math.max(
           card.totalAllocation ?? 0,
           ...(usageByMonth?.length ? usageByMonth : [0]),
-          10, // Minimum scale fallback
+          10,
         );
 
-        const chartData = last12MonthsLeaveData.map((month, i) => {
-          const val = usageByMonth[i] ?? 0;
+        const chartData = last12MonthsLeaveData.map((month, index) => {
+          const val = usageByMonth[index] ?? 0;
           return {
             name: month.shortMonth,
             fullMonth: month.fullMonth,
@@ -64,13 +66,11 @@ const LeaveMetricCards = ({
             key={card.key}
             className='flex flex-col rounded-xl border border-border bg-card p-5 shadow-sm transition-shadow hover:shadow-md'
           >
-            {/* ... title ... */}
             <p className='mb-3 text-sm font-medium text-muted-foreground'>
               {card.title}
             </p>
             <div className='flex min-h-[52px] items-end justify-between gap-3'>
               <div className='min-w-0 flex flex-col gap-2'>
-                {/* ... content (remaining/status) ... */}
                 {card.isFixedEvent ? (
                   <>
                     <p
@@ -119,24 +119,63 @@ const LeaveMetricCards = ({
                   </>
                 )}
               </div>
-              <div className='h-18 w-24 shrink-0'>
+              <div
+                className='h-14 w-24 shrink-0'
+                ref={(el) => {
+                  chartRefs.current[i] = el;
+                }}
+              >
                 <ResponsiveContainer width='100%' height='100%'>
                   <BarChart data={chartData}>
                     <YAxis hide domain={[0, maxDomain]} />
                     <RechartsTooltip
                       cursor={{ fill: 'transparent' }}
+                      // Removed fixed position to allow dynamic calculation if needed
+                      allowEscapeViewBox={{ x: true, y: true }}
+                      wrapperStyle={{ zIndex: 1000, outline: 'none' }}
                       content={({ active, payload }) => {
                         if (active && payload && payload.length) {
                           const data = payload[0].payload;
+
+                          // Check if close to right edge
+                          let isRightEdge = false;
+                          if (
+                            chartRefs.current[i] &&
+                            typeof window !== 'undefined'
+                          ) {
+                            const rect =
+                              chartRefs.current[i]?.getBoundingClientRect();
+                            if (rect && rect.right > window.innerWidth - 220) {
+                              isRightEdge = true;
+                            }
+                          }
+
                           return (
-                            <div className='rounded-md border bg-popover px-2 py-1 shadow-sm'>
-                              <span className='text-[10px] font-medium text-muted-foreground uppercase tracking-wider block mb-0.5'>
+                            <div
+                              className={cn(
+                                'rounded-md border bg-popover px-3 py-2 shadow-sm transition-transform',
+                                isRightEdge
+                                  ? '-translate-x-[105%]'
+                                  : 'translate-x-2',
+                              )}
+                              style={{ borderColor: card.sparkColor }}
+                            >
+                              <span className='mb-1 block text-xs font-medium text-muted-foreground capitalize whitespace-nowrap'>
                                 {data.fullMonth ?? data.name}
                               </span>
-                              <span className='font-bold text-popover-foreground text-sm tabular-nums'>
-                                {data.originalValue}{' '}
-                                {data.originalValue === 1 ? 'day' : 'days'}
-                              </span>
+                              <div className='flex items-center gap-2'>
+                                <div
+                                  className='h-2 w-2 rounded-full'
+                                  style={{ backgroundColor: card.sparkColor }}
+                                />
+                                <span
+                                  className='font-bold text-sm tabular-nums'
+                                  style={{ color: card.sparkColor }}
+                                >
+                                  {data.originalValue}{' '}
+                                  {data.originalValue === 1 ? 'day' : 'days'}
+                                </span>
+                              </div>
                             </div>
                           );
                         }

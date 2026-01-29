@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useMemo, useState, useCallback, useEffect } from 'react';
-import { Settings, Bell, User } from 'lucide-react';
+import { Settings, Bell, User, Moon, Sun } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
 import { getUser } from '@/lib/api';
+import { useTheme } from '@/hooks/useTheme';
 import NavRightPanel, {
   type NavRightPanelType,
 } from '@/components/NavRightPanel';
@@ -35,6 +36,7 @@ const getPageLabel = (pathname: string): string => {
 const Navbar = () => {
   const pathname = usePathname();
   const [rightPanel, setRightPanel] = useState<NavRightPanelType>(null);
+  const { isDark, setTheme } = useTheme();
 
   const { data: currentUser } = useQuery({
     queryKey: ['user', CURRENT_USER_ID],
@@ -89,6 +91,19 @@ const Navbar = () => {
         <Button
           variant='ghost'
           size='icon'
+          onClick={() => setTheme(isDark ? 'light' : 'dark')}
+          aria-label='Toggle theme'
+        >
+          {isDark ? (
+            <Moon className='h-5 w-5' aria-hidden />
+          ) : (
+            <Sun className='h-5 w-5' aria-hidden />
+          )}
+        </Button>
+
+        <Button
+          variant='ghost'
+          size='icon'
           onClick={() => openRightPanel('settings')}
           aria-label='Settings'
           className={cn(
@@ -112,24 +127,14 @@ const Navbar = () => {
           />
         </Button>
 
-        <button
+        <Button
           type='button'
           onClick={() => openRightPanel('profile')}
           aria-label='Profile'
-          className='flex items-center gap-2 rounded-lg px-2 py-1.5 transition-colors hover:bg-muted md:gap-3 md:px-3'
+          className='flex rounded-lg items-center gap-2 p-0 transition-colors hover:bg-primary/75 md:gap-3 md:px-3'
         >
-          <div className='flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-muted'>
-            <User className='h-4 w-4 text-muted-foreground' aria-hidden />
-          </div>
-          <div className='hidden text-left sm:block'>
-            <p className='font-medium text-sm leading-tight text-foreground'>
-              {displayName}
-            </p>
-            <p className='text-xs leading-tight capitalize text-muted-foreground'>
-              {currentUser?.department ?? currentUser?.role ?? '—'}
-            </p>
-          </div>
-        </button>
+          <User className='h-4 w-4 text-white dark:text-black' aria-hidden />
+        </Button>
       </div>
 
       <NavRightPanel
