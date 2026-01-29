@@ -105,9 +105,7 @@ const AppSidebarContent = () => {
                           ? 'group-data-[collapsible=icon]:size-auto! group-data-[collapsible=icon]:h-auto! group-data-[collapsible=icon]:min-h-0 w-[calc(100%-12px)]! justify-center items-center py-2.5 px-1 rounded-xl mx-auto overflow-visible! [&>span:last-child]:overflow-visible [&>span:last-child]:whitespace-nowrap'
                           : 'h-auto justify-start px-3 py-2 rounded-lg',
                         isActive
-                          ? isCollapsed
-                            ? 'bg-blue-100 dark:bg-primary/15! text-blue-600 dark:text-primary! hover:bg-blue-100/90 dark:hover:bg-primary/20!'
-                            : 'bg-primary! text-primary-foreground! hover:bg-primary/90! hover:text-primary-foreground!'
+                          ? 'bg-primary! text-primary-foreground! hover:bg-primary/90! hover:text-primary-foreground!'
                           : 'text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
                       )}
                     >
