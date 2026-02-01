@@ -104,6 +104,11 @@ const TotalLeaveBreakdownCard = ({
       : chartData;
 
   const [cursor, setCursor] = React.useState({ x: 0, y: 0 });
+  const [tooltipData, setTooltipData] = React.useState<{
+    name: string;
+    value: number;
+    fill: string;
+  } | null>(null);
 
   const handleChartMouseMove = React.useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -111,6 +116,10 @@ const TotalLeaveBreakdownCard = ({
     },
     [],
   );
+
+  const handleChartMouseLeave = React.useCallback(() => {
+    setTooltipData(null);
+  }, []);
 
   return (
     <div
@@ -124,6 +133,7 @@ const TotalLeaveBreakdownCard = ({
       <div
         className="h-64 w-full mt-4"
         onMouseMove={handleChartMouseMove}
+        onMouseLeave={handleChartMouseLeave}
         role="presentation"
       >
         <ResponsiveContainer width="100%" height="100%">
@@ -176,39 +186,50 @@ const TotalLeaveBreakdownCard = ({
               />
             </Pie>
             <Tooltip
-              wrapperStyle={{
-                position: "fixed",
-                left: cursor.x + 16,
-                top: cursor.y + 16,
-                pointerEvents: "none",
-                zIndex: 50,
-                transform: "none",
-              }}
+              cursor={false}
               content={({ active, payload }) => {
-                if (active && payload && payload.length) {
+                if (active && payload?.length) {
                   const data = payload[0].payload;
-                  if (data.name === "Empty") return null;
-                  return (
-                    <div className="flex items-center gap-2 rounded-lg border border-border/50 bg-popover px-3 py-2 shadow-xl">
-                      <div
-                        className="h-2.5 w-2.5 rounded-full ring-1 ring-border"
-                        style={{ backgroundColor: data.fill }}
-                      />
-                      <span className="text-sm font-medium text-popover-foreground">
-                        {data.name}{" "}
-                        <span className="font-bold opacity-90">
-                          {data.value}
-                        </span>
-                      </span>
-                    </div>
-                  );
+                  if (data.name !== "Empty") {
+                    const next = {
+                      name: data.name,
+                      value: data.value,
+                      fill: data.fill,
+                    };
+                    requestAnimationFrame(() => setTooltipData(next));
+                    return null;
+                  }
                 }
+                requestAnimationFrame(() => setTooltipData(null));
                 return null;
               }}
             />
           </PieChart>
         </ResponsiveContainer>
       </div>
+
+      {/* Custom tooltip that follows cursor – only when hovering a segment */}
+      {tooltipData && (
+        <div
+          className="pointer-events-none fixed z-100 rounded-lg border border-border/50 bg-popover px-3 py-2 shadow-xl"
+          style={{
+            left: cursor.x + 16,
+            top: cursor.y + 16,
+          }}
+          role="tooltip"
+        >
+          <div className="flex items-center gap-2">
+            <div
+              className="h-2.5 w-2.5 shrink-0 rounded-full ring-1 ring-border"
+              style={{ backgroundColor: tooltipData.fill }}
+            />
+            <span className="text-sm font-medium text-popover-foreground">
+              {tooltipData.name}{" "}
+              <span className="font-bold opacity-90">{tooltipData.value}</span>
+            </span>
+          </div>
+        </div>
+      )}
 
       <div className="flex w-full justify-center gap-8 text-sm mt-2">
         <div className="flex items-center gap-2">

@@ -160,12 +160,14 @@ export const AppSidebar = () => (
 
 export const DashboardLayoutSidebar = ({
   children,
+  defaultOpen,
 }: {
   children: React.ReactNode;
+  defaultOpen: boolean;
 }) => (
   <SidebarProvider
     className={cn('flex h-screen w-full overflow-hidden')}
-    defaultOpen={false}
+    defaultOpen={defaultOpen}
   >
     <AppSidebar />
     <SidebarInset className='flex min-h-0 flex-1 flex-col overflow-hidden'>
