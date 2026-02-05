@@ -17,7 +17,6 @@ const STAT_ICONS: Record<string, LucideIcon> = {
   rejected: XCircle,
 };
 
-// Dashboard leave card colors - royalBlue, emerald, lavender, orange, red
 const STAT_CONFIG: Record<
   string,
   { label: string; bgColor: string; progressColor: string }
@@ -96,7 +95,7 @@ export interface LeaveStatCardsProps {
 
 const LeaveStatCards = ({ stats }: LeaveStatCardsProps) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+    <div className="gap-4 grid grid-cols-1 md:grid-cols-4 mb-8">
       {stats.map((stat) => {
         const Icon = STAT_ICONS[stat.key];
         const config = STAT_CONFIG[stat.key];
@@ -105,38 +104,36 @@ const LeaveStatCards = ({ stats }: LeaveStatCardsProps) => {
         return (
           <Card
             key={stat.key}
-            className="overflow-hidden p-3 border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl"
+            className="shadow-lg hover:shadow-xl p-3 border-0 rounded-xl overflow-hidden transition-shadow duration-300"
             style={{ backgroundColor: config.bgColor }}
           >
-            <CardContent className="p-6 relative">
+            <CardContent className="relative p-6">
               <div className="flex items-center gap-5">
-                <div className="relative shrink-0 flex items-center justify-center">
+                <div className="relative flex justify-center items-center shrink-0">
                   <CircularProgress
                     percentage={stat.percentage}
                     strokeColor={config.progressColor}
                     size={64}
                     strokeWidth={5}
                   />
-                  <span className="absolute text-sm font-bold text-white">
-                    {stat.key === "total"
-                      ? stat.value
-                      : `${stat.percentage}%`}
+                  <span className="absolute font-bold text-white text-sm">
+                    {stat.key === "total" ? stat.value : `${stat.percentage}%`}
                   </span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-2xl font-bold text-white tracking-tight">
+                  <p className="font-bold text-white text-2xl tracking-tight">
                     {stat.value}
                   </p>
-                  <p className="text-sm font-medium text-white/90 mt-0.5">
+                  <p className="mt-0.5 font-medium text-white/90 text-sm">
                     {config.label}
                   </p>
                 </div>
               </div>
               <div
-                className="absolute right-2 top-1/2 -translate-y-1/2 opacity-[0.12]"
+                className="top-1/2 right-[-40px] absolute opacity-[0.12] -translate-y-1/2"
                 aria-hidden
               >
-                <Icon className="h-24 w-24 text-white" />
+                <Icon className="w-24 h-24 text-white" />
               </div>
             </CardContent>
           </Card>
