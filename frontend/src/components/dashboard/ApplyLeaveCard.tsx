@@ -30,20 +30,20 @@ const ApplyLeaveCard = () => {
           Apply Leave
         </span>
         <div className='flex gap-1' role='tablist' aria-label='Carousel navigation'>
-          <button
+          <Button
             type='button'
             className='rounded-full p-1.5 bg-white/10 hover:bg-white/20 transition-colors'
             aria-label='Previous'
           >
             <ChevronLeft className='w-4 h-4 text-white' />
-          </button>
-          <button
+          </Button>
+          <Button
             type='button'
             className='rounded-full p-1.5 bg-white/10 hover:bg-white/20 transition-colors'
             aria-label='Next'
           >
             <ChevronRight className='w-4 h-4 text-white' />
-          </button>
+          </Button>
         </div>
       </div>
       <div className='relative z-10 flex-1 flex flex-col justify-center'>

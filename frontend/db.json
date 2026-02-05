@@ -109,6 +109,20 @@
       "appliedAt": "2025-09-05T10:00:00Z",
       "reviewedBy": "2",
       "reviewedAt": "2025-09-05T14:00:00Z"
+    },
+    {
+      "id": "8",
+      "userId": "1",
+      "type": "casual",
+      "startDate": "2025-08-15",
+      "endDate": "2025-08-16",
+      "days": 2,
+      "reason": "Personal commitment",
+      "status": "rejected",
+      "appliedAt": "2025-08-10T09:00:00Z",
+      "reviewedBy": "2",
+      "reviewedAt": "2025-08-11T11:00:00Z",
+      "comments": "Team availability required during this period"
     }
   ],
   "leaveBalances": [

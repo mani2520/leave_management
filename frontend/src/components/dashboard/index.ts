@@ -1,7 +1,6 @@
 export { default as WelcomeCard } from "./WelcomeCard";
 export { default as ApplyLeaveCard } from "./ApplyLeaveCard";
 export { default as TotalLeaveBreakdownCard } from "./TotalLeaveBreakdownCard";
-export type { Last12MonthsItem } from "./TotalLeaveBreakdownCard";
 export { default as LeaveMetricCards } from "./LeaveMetricCards";
 export type { LeaveMetricCardData, MonthLabel } from "./LeaveMetricCards";
 export { default as RecentApply } from "./RecentApply";

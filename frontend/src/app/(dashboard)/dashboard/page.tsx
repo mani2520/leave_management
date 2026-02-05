@@ -378,14 +378,7 @@ const Dashboard = () => {
           <TotalLeaveBreakdownCard
             leaveBalance={leaveBalance ?? null}
             myLeaves={myLeaves}
-            last12MonthsData={last12MonthsLeaveData}
-            totalAllocation={
-              LEAVE_ALLOCATIONS.el +
-              LEAVE_ALLOCATIONS.cl +
-              LEAVE_ALLOCATIONS.sl +
-              LEAVE_ALLOCATIONS.compOff +
-              LEAVE_ALLOCATIONS.bereavementDays
-            }
+            last6MonthsData={last12MonthsLeaveData}
           />
         </div>
 

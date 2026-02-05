@@ -59,7 +59,7 @@ const WelcomeCard = ({
           )}
         </div>
         <div className='relative z-10'>
-          <Link href='/leaves/apply'>
+          <Link href='/leaves'>
             <Button
               className='flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg'
               aria-label='Apply leave'
